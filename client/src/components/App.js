@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+
+import Header from './Header'
+import NavBar from './NavBar'
 
 function App() {
-  return <h1>Phase 4 Project Client</h1>;
+  return (
+    <div className="App">
+        <Header />
+        <NavBar />
+        <Routes>
+          <Route path='/Home'></Route>
+          <Route path='/' element={}></Route>
+          <Route path='/' element={}></Route>
+          <Route path='/' element={}></Route>
+          <Route path='/' element={}></Route>
+        </Routes>
+    </div>
+  );
 }
 
 export default App;
