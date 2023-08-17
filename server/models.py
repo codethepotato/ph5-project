@@ -6,22 +6,12 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 from config import db
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-    "uq": "uq_%(table_name)s_%(column_0_name)s",
-    "ck": "ck_%(table_name)s_%(constraint_name)s",
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-
-db = SQLAlchemy(metadata=metadata)
-
-
 class Cat(db.Model, SerializerMixin):
     __tablename__ = 'cats'
     
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String, nullable = False)
-    member = db.Column(db.Boolean)
+    name = db.Column(db.String)
+    picture = db.Column(db.String)
 
     def __repr__(self):
         return f'<Cat {self.id}: {self.name}>'
@@ -31,6 +21,7 @@ class CatCult(db.Model, SerializerMixin):
     __tablename__ = 'cat_cults'
     
     id = db.Column(db.Integer, primary_key = True)
+    motto = db.Column(db.String)
 
     cat_id = db.Column(db.Integer, db.ForeignKey('cats.id'))
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
@@ -55,9 +46,10 @@ class Event(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String, nullable = False)
+    description = db.Column(db.String)
     co_mingle = db.Column(db.Boolean)
 
     catcult_id = db.Column(db.Integer, db.ForeignKey('cat_cults.id'))
 
     def __repr__(self):
-        return f'<Event {self.id}>'
+        return f'<Event {self.id}: {self.title}: {self.co_mingle}>'
