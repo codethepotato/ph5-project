@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Card} from 'semantic-ui-react';
 
-function GroupCard(){
+function GroupCard({name, motto}){
+
     return (
         <Card>
-            <div>
-                <h1></h1>
-            </div>
+            <div>{name}</div>
+            <p>{motto}</p>
         </Card>
     )
 }

@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Route, Routes} from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import Header from './Header'
-import NavBar from './NavBar'
+import Header from './Header';
+import NavBar from './NavBar';
+import Members from './Members';
+import SocialEvents from './SocialEvents';
+import Initiation from './Initiation';
+import Groups from "./Groups";
 
 function App() {
   return (
-    <div className="App">
+    <div >
         <Header />
         <NavBar />
         <Routes>

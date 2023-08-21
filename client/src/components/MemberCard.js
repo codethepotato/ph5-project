@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {Card} from 'semantic-ui-react';
 
-function MemberCard(){
+function MemberCard({cat}){
+    
+    const {name, image} = cat
+
     return (
         <Card>
             <div>
-                <h1></h1>
+                <h1>{cat.name}</h1>
+                <img src = {cat.picture}/>
             </div>
         </Card>
     )
