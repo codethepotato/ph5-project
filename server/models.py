@@ -21,7 +21,6 @@ class CatCult(db.Model, SerializerMixin):
     __tablename__ = 'cat_cults'
     
     id = db.Column(db.Integer, primary_key = True)
-    motto = db.Column(db.String)
 
     cat_id = db.Column(db.Integer, db.ForeignKey('cats.id'))
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
@@ -35,6 +34,7 @@ class Cult(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
+    motto = db.Column(db.String)
 
 
     def __repr__(self):
