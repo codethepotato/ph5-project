@@ -24,3 +24,7 @@
   justify-content: space-evenly;
   position: sticky;
 }
+
+.member-image{
+  width: 100%;
+}

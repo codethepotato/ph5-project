@@ -19,6 +19,7 @@ function Groups() {
         return <GroupCard 
         key = {cult.id}
         name = {cult.name}
+        cult_id = {cult.cult_id}
         motto = {cult.motto} />
     })
 

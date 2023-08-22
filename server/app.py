@@ -52,6 +52,13 @@ class Events(Resource):
         events = [ev.to_dict() for ev in Event.query.all()]
         return make_response(jsonify(events), 200)
     
+    def post(self):
+        data = request.get_json()
+        new_event = Event(title = data['title'], description = data['description'], cult_id = data['cult_id'], co_mingle = data['co_mingle'])
+        db.session.add(new_event)
+        db.session.commit()
+        return make_response(new_event.to_dict(), 201)
+    
 api.add_resource(Events, '/events')
 
 

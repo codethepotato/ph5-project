@@ -9,6 +9,8 @@ function SocialEvents() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [mingle, setMingle] = useState(false)
+    const [cult_id, setCult_id] = useState('')
+
 
     useEffect(() => {
         fetch('http://localhost:5555/events')
@@ -24,13 +26,15 @@ function SocialEvents() {
             key={e.id}
             title={e.title}
             description={e.description}
+            cult_id={e.cult_id}
             co_mingle={e.co_mingle} />
     })
 
     const newEvent = {
         title: title,
         description: description,
-        mingle: mingle
+        cult_id: cult_id,
+        co_mingle: mingle
     }
 
     const handleSubmit = e => {
@@ -49,37 +53,40 @@ function SocialEvents() {
     }
 
     const addEvent = (newEvent) => {
-        setEvents([...allEvents, newEvent])
+        setEvents([...events, newEvent])
     }
 
-    const toggle = (e) => {
-        e.preventDefault()
+    const toggle = () => {
         setMingle(!mingle)
     }
 
     return (
-        <div id = 'event-container'>
+        <div id='event-container'>
             <h1>Cat-tastic Events!</h1>
-            {allEvents}
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Input
                         onChange={e => setTitle(e.target.value)}
                         fluid label='Title'
-                        placeholder='Title'
+                        placeholder='Event Title'
                         title='title' />
                     <Form.Input
                         onChange={e => setDescription(e.target.value)}
                         fluid label='Description'
-                        placeholder='Description'
+                        placeholder='Event Description'
                         description='description' />
                     <Form.Input
-                        onChange={toggle}
+                        onChange={e => setCult_id(e.target.value)}
+                        fluid label='Cult Id'
+                        placeholder="Event's Cult Id (ex. 1-6)" />
+                    <Form.Input
+                        onClick={toggle}
                         fluid label='Co-Mingle'
-                        type = 'checkbox' />    
+                        type='checkbox' />
                 </Form.Group>
                 <Form.Button>Submit!</Form.Button>
             </Form>
+            {allEvents}
         </div>
     )
 }

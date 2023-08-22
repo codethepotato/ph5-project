@@ -5,7 +5,12 @@ import Login from './Login'
 import SignUp from './SignUp'
 
 function Initiation() {
-    return 
+    return (
+        <div>
+            <SignUp />
+            <Login />
+        </div>
+    )
 }
 
 

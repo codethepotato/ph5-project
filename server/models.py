@@ -49,7 +49,7 @@ class Event(db.Model, SerializerMixin):
     description = db.Column(db.String)
     co_mingle = db.Column(db.Boolean)
 
-    catcult_id = db.Column(db.Integer, db.ForeignKey('cat_cults.id'))
+    cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
     def __repr__(self):
         return f'<Event {self.id}: {self.title}: {self.co_mingle}>'
