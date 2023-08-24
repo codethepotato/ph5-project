@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, CardContent, Image } from 'semantic-ui-react';
 
 function MemberCard({ cat }) {
 

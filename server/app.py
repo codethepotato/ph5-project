@@ -58,9 +58,19 @@ class Events(Resource):
         db.session.add(new_event)
         db.session.commit()
         return make_response(new_event.to_dict(), 201)
+
     
 api.add_resource(Events, '/events')
 
+class EventsById(Resource):
+    def delete(self, id):
+        evt = Event.query.filter_by(id = id).first()
+        db.session.delete(evt)
+        db.session.commit()
+        return make_response({}, 204)
+
+
+api.add_resource(EventsById, '/events/<int:id>')
 
 
 

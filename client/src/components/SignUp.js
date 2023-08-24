@@ -1,64 +1,29 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Form, Card, Input } from 'semantic-ui-react';
 
 function SignUp() {
 
-    const initialValues = {
-        name: '',
-    }
+    return (
+        <div>
+            <Card>
+                <Form>
+                    <h1>Sign Up</h1>
+                    <Form.Input>
+                        <label>Name</label>
+                        <Input type = 'text' placeholder = 'Name' />
+                    </Form.Input>
+                    <Form.Input>
+                        <label>Username</label>
+                        <Input type = 'text' placeholder = 'Username' />
+                    </Form.Input>
+                    <Form.Input>
+                        <label>Password</label>
+                        <Input type = 'text' placeholder = 'Password' />
+                    </Form.Input>
+                    <Form.Button>Join!</Form.Button>
+                </Form>    
+            </Card>
+        </div >
+    )
 
-    const validate = (values) => {
-        const errors = {};
-
-        if (!values.name) {
-            errors.name = 'Name is required!';
-        }
-        return errors;
-    }
-
-    const [form, setForm] = useState({})
-
-    const updateForm = e => {
-        setForm(f => {
-            return { ...f, [e.target.name]: e.target.value }
-        })
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        fetch('/members', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(form)
-        })
-            .then(r => {
-                if (r.ok) {
-                    r.json().then(console.log)
-                } else {
-                    console.error()
-                    console.error('POST /members status', r.status)
-                    r.text().then(console.warn)
-                }
-            })
-    }
-
-    return 
 }
-
 export default SignUp;
-     // <h1>Sign up</h1>
-        // <form onSumbit = {handleSubmit}>
-        //     <div>
-        //         <label> username :
-        //             <input name = 'name' onChange = {updateForm}/>
-        //         </label>
-        //     </div>
-        //     <div>
-        //         <label>
-        //             password:
-        //             <input name = 'password'
-        //             type = 'password'
-        //             onChange={updateForm} />
-        //         </label>
-        //     </div>
-        // </form>

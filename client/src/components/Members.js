@@ -20,7 +20,7 @@ function Members() {
     })
 
     return (
-        <div id='member-container'>
+        <div className='member-container'>
             <h1>Active Members</h1>
             <Card.Group itemsPerRow={6}>
                 {allCats}

@@ -5,18 +5,40 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+body{
+  background-color: #5f6470;
+}
+
+.header {
+  text-align: center;
+  font-size: 25px;
+}
+
 .card {
   text-align: center;
   border: grey solid 2px;
   padding: 1rem;
   width: 13rem;
-  height: 14rem;
+  height: 17rem;
   display: inline-grid;
   margin: 1rem 2rem;
-  box-shadow: 3px 4px #1d55c6;
+  box-shadow: 3px 4px #b91111;
+  background-color: #ffabab;
   border-radius: 20px;
+  float: left;
 }
 
+button {
+  height: 35px;
+  width: 150px;
+  background-color: #ffabab;
+  border: 2px solid #b91111;
+  color:#0f0f0f;
+  cursor: pointer;
+  border-radius: 20px;
+  font-family: 'cursive', 'Brush Script MT';
+  font-size: large;
+}
 
 .nav-bar{
   overflow: hidden;
@@ -27,4 +49,18 @@
 
 .member-image{
   width: 100%;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  font-weight: bold
+}
+
+.event-container{
+  text-align: center;
+}
+
+.member-container {
+  text-align: center;
 }

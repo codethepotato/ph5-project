@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function NavBar() {
     return (
-        <nav>
+        <nav className="nav-bar">
             <ul className='nav-item'>
                 <NavLink to='/'>
                     <button type='button'>Home</button></NavLink>
@@ -18,7 +18,7 @@ function NavBar() {
             </ul>
             <ul className='nav-item'>
                 <NavLink to='/Initiation'>
-                    <button type='button'>Initiation/Sign Up</button></NavLink>
+                    <button type='button'>Initiation/Log In</button></NavLink>
             </ul>
             <ul className='nav-item'>
                 <NavLink to='/Groups'>

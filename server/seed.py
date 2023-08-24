@@ -32,9 +32,9 @@ if __name__ == '__main__':
         c13 = Cat(name = 'Catty McCatface', picture = '/Cat_cult_imgs/shanley.jpg')
         c14 = Cat(name = 'Caramel', picture = '/Cat_cult_imgs/syeda.jpg')
         c15 = Cat(name = 'Vivi', picture = '/Cat_cult_imgs/tj.png')
-        c16 = Cat(name = 'Aurther Fluffington', picture = '/Cat_cult_imgs/Will.jpg')
+        c16 = Cat(name = 'Aurthur Fluffington', picture = '/Cat_cult_imgs/Will.jpg')
         c17 = Cat(name = 'Odie', picture = '/Cat_cult_imgs/yu.jpg')
-        c18 = Cat(name = 'Purrple Haze', picture = '/Cat_cult_imgs/2.2.png')
+        c18 = Cat(name = 'Purrple Haze', picture = '/Cat_cult_imgs/2.0.jpg')
         c19 = Cat(name = 'Lil Paw-pa', picture = '/Cat_cult_imgs/seb.jpg')
         c20 = Cat(name = 'Mr. Bean', picture = '/Cat_cult_imgs/robbie.png')
         c21 = Cat(name = 'Meowster Chief', picture = '/Cat_cult_imgs/captain.jpg')
@@ -97,11 +97,17 @@ if __name__ == '__main__':
 
         print('Seeding CatCults...')
         
+        # Back Alley
         cc1 = initiateCats(cl1, [c16, c18, c24, c27])
+        # Bastet
         cc2 = initiateCats(cl2, [c3, c4, c6, c13, c22])
+        # Shadow Paw
         cc3 = initiateCats(cl3, [c1, c2, c21])
+        # Free Beans
         cc4 = initiateCats(cl4, [c5, c7, c12, c14, c19, c20, c29])
+        # Dank Tails
         cc5 = initiateCats(cl5, [c10, c11, c25, c26])
+        # Illumicati
         cc6 = initiateCats(cl6, [c8, c9, c15, c17, c23, c28])
         
         db.session.commit()

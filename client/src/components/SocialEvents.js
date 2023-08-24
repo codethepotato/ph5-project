@@ -21,15 +21,6 @@ function SocialEvents() {
             })
     }, []);
 
-    const allEvents = events.map(e => {
-        return <EventCard
-            key={e.id}
-            title={e.title}
-            description={e.description}
-            cult_id={e.cult_id}
-            co_mingle={e.co_mingle} />
-    })
-
     const newEvent = {
         title: title,
         description: description,
@@ -60,11 +51,30 @@ function SocialEvents() {
         setMingle(!mingle)
     }
 
+    const byeEvent = (id) => {
+        const newList = events.filter((event) => event.id !== id);
+        setEvents(newList)
+        fetch(`http://localhost:5555/events/${id}`, {
+            method: 'DELETE',
+        })
+    }
+
+    const allEvents = events.map(e => {
+        return <EventCard
+            key={e.id}
+            id={e.id}
+            title={e.title}
+            description={e.description}
+            cult_id={e.cult_id}
+            co_mingle={e.co_mingle}
+            byeEvent = {byeEvent} />
+    })
+
     return (
-        <div id='event-container'>
+        <div className='event-container'>
             <h1>Cat-tastic Events!</h1>
             <Form onSubmit={handleSubmit}>
-                <Form.Group>
+                <Form.Group className="new-event">
                     <Form.Input
                         onChange={e => setTitle(e.target.value)}
                         fluid label='Title'

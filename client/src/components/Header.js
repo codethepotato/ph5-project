@@ -1,7 +1,8 @@
 function Header(){
     return (
-        <div>
-            <h1>Howdy!</h1>
+        <div class = 'header'>
+            <title>???</title>
+            <h1>Welcome to Purr-Gatory!</h1>
         </div>
     )
 }
