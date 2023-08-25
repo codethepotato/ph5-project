@@ -68,6 +68,19 @@ class EventsById(Resource):
         db.session.delete(evt)
         db.session.commit()
         return make_response({}, 204)
+    
+    def patch(self, id):
+        attend = Event.query.filter_by(id = id).first()
+        if not Event:
+            return make_response({'Error' : 'Event not found'}, 404)
+        data = request.json()
+        for key in data:
+            try:
+                setattr(attend, key, data[key])
+            except ValueError as v_error:
+                return make_response({'Errors': [str(v_error)]}, 422)
+        db.session.commit()
+        return make_response(attend.to_dict())
 
 
 api.add_resource(EventsById, '/events/<int:id>')

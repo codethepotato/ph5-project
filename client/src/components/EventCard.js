@@ -1,6 +1,6 @@
 import { Card } from "semantic-ui-react";
 
-function EventCard({id, title, description, co_mingle, cult_id, byeEvent}){
+function EventCard({id, title, description, co_mingle, cult_id, byeEvent, handleAttendance}){
 
     return (
         <Card>
@@ -10,6 +10,7 @@ function EventCard({id, title, description, co_mingle, cult_id, byeEvent}){
                 <p>{cult_id}</p>
                 <p>{co_mingle}</p>
             </div>
+            <button onClick = {() => handleAttendance(id)}>Attend</button>
             <button onClick = {() => byeEvent(id)}>Cancel</button>
         </Card>
     )

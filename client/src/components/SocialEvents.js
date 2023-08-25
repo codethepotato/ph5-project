@@ -8,9 +8,9 @@ function SocialEvents() {
     const [events, setEvents] = useState([])
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [mingle, setMingle] = useState(false)
     const [cult_id, setCult_id] = useState('')
-
+    const [mingle, setMingle] = useState(false)
+    const [attendance, setAttendance] = useState(false)
 
     useEffect(() => {
         fetch('http://localhost:5555/events')
@@ -51,6 +51,10 @@ function SocialEvents() {
         setMingle(!mingle)
     }
 
+    const handleAttendance = () => {
+        setAttendance(!attendance)
+    }
+
     const byeEvent = (id) => {
         const newList = events.filter((event) => event.id !== id);
         setEvents(newList)
@@ -58,6 +62,9 @@ function SocialEvents() {
             method: 'DELETE',
         })
     }
+
+    
+      
 
     const allEvents = events.map(e => {
         return <EventCard
@@ -67,7 +74,8 @@ function SocialEvents() {
             description={e.description}
             cult_id={e.cult_id}
             co_mingle={e.co_mingle}
-            byeEvent = {byeEvent} />
+            byeEvent = {byeEvent}
+            attendance = {handleAttendance} />
     })
 
     return (
