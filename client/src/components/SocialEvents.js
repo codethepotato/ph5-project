@@ -53,6 +53,7 @@ function SocialEvents() {
 
     const handleAttendance = () => {
         setAttendance(!attendance)
+        console.log('Is it?')
     }
 
     const byeEvent = (id) => {
@@ -75,7 +76,8 @@ function SocialEvents() {
             cult_id={e.cult_id}
             co_mingle={e.co_mingle}
             byeEvent = {byeEvent}
-            attendance = {handleAttendance} />
+            handleAttendance = {handleAttendance}
+            attendance = {attendance} />
     })
 
     return (

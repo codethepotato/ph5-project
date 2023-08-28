@@ -24,7 +24,7 @@ class Cats(Resource):
     
     def post(self):
         data = request.get_json()
-        new_cat = Cat(name = data['name'], picture = data['picture'])
+        new_cat = Cat(name = data['name'], picture = data['picture'], username = data['username'], password_hash = data['password'])
         db.session.add(new_cat)
         db.session.commit()
         return make_response(new_cat.to_dict(), 201)

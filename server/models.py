@@ -3,8 +3,9 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from flask_bcrypt import _bcrypt
 
-from config import db
+from config import db, bcrypt
 
 class Cat(db.Model, SerializerMixin):
     __tablename__ = 'cats'
@@ -12,6 +13,28 @@ class Cat(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     picture = db.Column(db.String)
+
+    username = db.Column(db.String)
+    _password_hash = db.Column(db.String)
+
+    @property
+    def get_password_hash(self):
+        return self._password_hash
+    
+    @password_hash_setter
+    def set_password_hash(self, new_password):
+        if (new_password, str) and 1 <= len(new_password) <= 15:
+            secret = new_password.encode('utf-8')
+            supersecret = bcrypt.generate_password_hash(secret)
+            new_password_hash = supersecret.decode('utf-8')
+            self._password_hash = new_password_hash
+
+    @validates('name')
+    def validates_name(self, key, new_name):
+        if (new_name, str) and 1 <= len(new_name) <= 15:
+            return new_name
+        else:
+            raise ValueError('Name must be given between 1-15 characters!')
 
     def __repr__(self):
         return f'<Cat {self.id}: {self.name}>'

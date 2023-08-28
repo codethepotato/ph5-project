@@ -4,13 +4,7 @@ import { useState } from "react";
 
 function Login() {
 
-    const [form, setForm] = useState({})
-
-    const updateForm = (e) => {
-        setForm(form => {
-            return {...form, [e.target.name]: e.target.value}
-        })
-    }
+   
 
     return (
         <div>
