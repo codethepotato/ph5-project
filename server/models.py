@@ -3,7 +3,7 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
-from flask_bcrypt import _bcrypt
+from flask_bcrypt import bcrypt
 
 from config import db, bcrypt
 
@@ -18,11 +18,11 @@ class Cat(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
 
     @property
-    def get_password_hash(self):
+    def password_hash(self):
         return self._password_hash
     
-    @password_hash_setter
-    def set_password_hash(self, new_password):
+    @password_hash.setter
+    def setting(self, new_password):
         if (new_password, str) and 1 <= len(new_password) <= 15:
             secret = new_password.encode('utf-8')
             supersecret = bcrypt.generate_password_hash(secret)

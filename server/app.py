@@ -1,7 +1,6 @@
-from flask import Flask
 from models import Cat, Cult, CatCult, Event
 from flask_migrate import Migrate
-from flask import Flask, request, make_response, jsonify
+from flask import Flask, request, make_response, jsonify, session
 from flask_restful import Api, Resource
 from flask_cors import CORS
 import os
@@ -15,7 +14,25 @@ from config import app, db, api
 
 @app.route('/')
 def index():
-    return '<h1>Phase 4 Project Server</h1>'
+    return '<h1>Phase 5 Purr-Gatory</h1>'
+
+
+@app.route('/login', methods = ['POST'])
+def login():
+    data = request.json
+    username = data['name']
+    password = data['password']
+
+    cat = Cat.query.filter_by(name = username).first()
+    if not cat:
+        return make_response({'error': 'Cat not found'}, 404)
+    
+    if not cat.authenticate(password):
+        return make_response({'error': 'Incorrect password'}, 401)
+    
+    session['cat_id'] = cat.id
+    return make_response(cat.to_dict())
+
 
 class Cats(Resource):
     def get(self):

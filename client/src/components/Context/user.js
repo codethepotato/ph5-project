@@ -1,4 +1,4 @@
-import { useState, useContext, createContext, ReactComponentElement, useEffect } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
 import { ReactDOM } from "react-dom/client";
 
 const UserContext = createContext(null)
@@ -12,4 +12,4 @@ function UserProvider({children}) {
 }
 
 
-export {UserContext, userProvider}
+export {UserContext, UserProvider}
