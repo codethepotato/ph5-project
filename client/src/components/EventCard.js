@@ -1,13 +1,15 @@
 import { Card } from "semantic-ui-react";
 import { useState } from "react";
+import { UserContext } from "./Context/user";
+import { useContext } from "react";
 
-function EventCard({id, title, description, co_mingle, cult_id, byeEvent}){
+function EventCard({ id, title, description, co_mingle, cult_id, byeEvent }) {
 
     const [attendance, setAttendance] = useState(true)
+    const { user, setUser } = useContext(UserContext)
 
     const handleAttendance = () => {
         setAttendance(!attendance)
-        // console.log('Is it?')
     }
 
     return (
@@ -18,14 +20,24 @@ function EventCard({id, title, description, co_mingle, cult_id, byeEvent}){
                 <p>{cult_id}</p>
                 <p>{co_mingle}</p>
             </div>
-            {attendance ? (
-                <button onClick={handleAttendance} className="primary">Attend</button>
-            ) : (
-                <button onClick={handleAttendance}>Attending</button>
-            )}
-            <button onClick = {() => byeEvent(id)}>Cancel</button>
+            <div>
+                { user ?               
+                    <div>
+                        {attendance ? (
+                            <button onClick={handleAttendance} className="primary">Attend</button>
+                        ) : (
+                            <button onClick={handleAttendance}>Attending</button>
+                        )}
+                        <button onClick={() => byeEvent(id)}>Cancel</button>
+                    </div> :
+                    <div>
+                    
+                    </div>
+                }
+            </div>
         </Card>
     )
 }
 
 export default EventCard;
+

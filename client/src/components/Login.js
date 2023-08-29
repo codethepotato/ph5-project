@@ -36,7 +36,7 @@ function Login() {
                             position: toast.POSITION.TOP_CENTER,
                             autoClose: 2000,
                         });
-                        navigate('/')
+                        navigate('/Home')
                     })
                 } else {
                     toast.error('Error logging in', {
@@ -48,7 +48,7 @@ function Login() {
                 }
             })
     }
-
+   
     return (
         <div>
             <Card>

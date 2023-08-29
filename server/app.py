@@ -61,6 +61,25 @@ class Cats(Resource):
 
 api.add_resource(Cats, '/cats')
 
+
+class CatsById(Resource):
+    def patch(self, id):
+        cat = Cat.query.filter(Cat.id == id).first()
+        data = request.get_json()
+
+        for attr in data:
+            setattr(cat, attr, data[attr])
+
+        db.session.commit()
+
+        response_dict = {
+            'username': cat.username
+        }
+        response = make_response(response_dict, 200)
+        return response 
+
+api.add_resource(CatsById, '/cats/<int:id>')
+
 class Cults(Resource):
     def get(self):
         cults = [cl.to_dict() for cl in Cult.query.all()]

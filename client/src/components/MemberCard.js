@@ -10,6 +10,7 @@ function MemberCard({ cat }) {
             <img className = 'member-image' src={picture} size = 'small' wrapped />
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
+                <Button>Edit</Button>
             </Card.Content>
         </Card>
     )
@@ -17,3 +18,6 @@ function MemberCard({ cat }) {
 
 export default MemberCard;
 
+
+
+    
