@@ -32,7 +32,20 @@ def login():
     
     session['cat_id'] = cat.id
     return make_response(cat.to_dict())
+    
 
+@app.route('/logout', methods = ['DELETE'])
+def logout():
+    session['cat_id'] = None
+    return make_response('', 204)
+
+
+@app.before_request
+def check_logged_in():
+    if (request.endpoint in ['events', 'eventsbyid', 'logout'] and request.method != 'GET') \
+            or request.endpoint == 'authorize':
+        if not session.get('cat_id'):
+            return make_response({'error': 'Unauthorized'}, 401)
 
 class Cats(Resource):
     def get(self):
@@ -80,10 +93,6 @@ api.add_resource(Events, '/events')
 
 class EventsById(Resource):
     def delete(self, id):
-
-        if not session['user_id']:
-            return {'error': 'Unauthorized'}, 401
-
         evt = Event.query.filter_by(id = id).first()
         db.session.delete(evt)
         db.session.commit()

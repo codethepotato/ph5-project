@@ -51,7 +51,6 @@ function SocialEvents() {
         setMingle(!mingle)
     }
 
-
     const byeEvent = (id) => {
         const newList = events.filter((event) => event.id !== id);
         setEvents(newList)

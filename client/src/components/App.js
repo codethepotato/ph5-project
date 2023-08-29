@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from './Header';
@@ -9,10 +9,15 @@ import Initiation from './Initiation';
 import Groups from "./Groups";
 
 function App() {
+
+  const [user, setUser] = useState(null);
+
+  const updateUser = (user) => setUser(user)
+
   return (
     <div >
         <Header />
-        <NavBar />
+        <NavBar updateUser = {updateUser}/>
         <Routes>
           <Route path='/Home'></Route>
           <Route path='/Members' element = {<Members />}></Route>

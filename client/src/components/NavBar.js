@@ -1,7 +1,24 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function NavBar() {
+function NavBar({ updateUser }) {
+
+    const handleLogout = () => {
+        fetch('/logout', {
+            method: 'DELETE',
+        })
+            .then(() => {
+                updateUser(null);
+                toast.success('Lougout Successful!', {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 2000,
+                })
+            });
+
+    };
+
     return (
         <nav className="nav-bar">
             <ul className='nav-item'>
@@ -24,7 +41,12 @@ function NavBar() {
                 <NavLink to='/Groups'>
                     <button type='button'>Groups</button></NavLink>
             </ul>
+            <ul className="nav-item">
+                <button onClick={handleLogout}>Logout</button>
+            </ul>
+            <ToastContainer />
         </nav>
+
     )
 }
 

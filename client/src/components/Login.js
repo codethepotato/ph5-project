@@ -3,6 +3,8 @@ import { Card } from "semantic-ui-react";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "./Context/user";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
 
@@ -11,10 +13,8 @@ function Login() {
     const {user, setUser} = useContext(UserContext)
 
     const navigate = useNavigate()
-
-    // console.log(login)
+   
     const updateForm = e => {
-        // console.log(e)
         setLogin(f => {
             return { ...f, [e.target.name]: e.target.value }
         })
@@ -22,7 +22,7 @@ function Login() {
 
     const handleSumbit = e => {
         e.preventDefault()
-        console.log(login)
+        // console.log(login)
         fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -32,10 +32,17 @@ function Login() {
                 if (r.ok) {
                     r.json().then(r_body => {
                         setUser(r_body)
+                        toast.success('Logged in successfully!', {
+                            position: toast.POSITION.TOP_CENTER,
+                            autoClose: 2000,
+                        });
                         navigate('/')
                     })
                 } else {
-                    console.error('Error logging in')
+                    toast.error('Error logging in', {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 2000,
+                    });
                     console.error('POST /login status:', r.status)
                     r.text().then(console.warn)
                 }
@@ -67,6 +74,7 @@ function Login() {
                     </Form.Input>
                     <Form.Button>Pst Pst!</Form.Button>
                 </Form>
+                <ToastContainer/>
             </Card>
         </div>
     )
