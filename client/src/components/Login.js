@@ -6,24 +6,27 @@ import { UserContext } from "./Context/user";
 
 function Login() {
 
-    const [form, setForm] = useState({})
+    const starter = {username: '', password: ''}
+    const [login, setLogin] = useState(starter)
     const {user, setUser} = useContext(UserContext)
 
     const navigate = useNavigate()
 
-
-    const updateForm = (e) => {
-        setForm(form => {
-            return { ...form, [e.target.name]: e.target.value }
+    // console.log(login)
+    const updateForm = e => {
+        // console.log(e)
+        setLogin(f => {
+            return { ...f, [e.target.name]: e.target.value }
         })
     }
 
     const handleSumbit = e => {
         e.preventDefault()
+        console.log(login)
         fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(form)
+            body: JSON.stringify(login)
         })
             .then(r => {
                 if (r.ok) {
@@ -43,24 +46,26 @@ function Login() {
         <div>
             <Card>
                 <h1>Login</h1>
-                <Form>
+                <Form onSubmit={handleSumbit}>
                     <Form.Input>
                         <label>Username</label>
                         <Input
-                            onChange={e => updateForm(e.target.value)}
+                            name = 'username'
+                            onChange={e => updateForm(e)}
                             type='text'
                             placeholder='Username'
-                            name = 'username' />
+                            value = {login.username} />
                     </Form.Input>
                     <Form.Input>
                         <label>Password</label>
                         <Input
-                            onChange={e => updateForm(e.target.value)}
-                            type='text'
-                            placeholder='Password'
-                            name = 'password' />
+                            name = 'password'
+                            type='password'
+                            onChange={e => updateForm(e)}
+                            value = {login.password}
+                            placeholder='Password' />
                     </Form.Input>
-                    <Form.Button onClick={handleSumbit}>Pst Pst!</Form.Button>
+                    <Form.Button>Pst Pst!</Form.Button>
                 </Form>
             </Card>
         </div>

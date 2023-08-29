@@ -1,6 +1,14 @@
 import { Card } from "semantic-ui-react";
+import { useState } from "react";
 
-function EventCard({id, title, description, co_mingle, cult_id, byeEvent, handleAttendance, attendance}){
+function EventCard({id, title, description, co_mingle, cult_id, byeEvent}){
+
+    const [attendance, setAttendance] = useState(true)
+
+    const handleAttendance = () => {
+        setAttendance(!attendance)
+        // console.log('Is it?')
+    }
 
     return (
         <Card>
@@ -10,7 +18,11 @@ function EventCard({id, title, description, co_mingle, cult_id, byeEvent, handle
                 <p>{cult_id}</p>
                 <p>{co_mingle}</p>
             </div>
-            <button onClick = {() => handleAttendance(id)}>{attendance ? 'Attending' : 'Attend'}</button>
+            {attendance ? (
+                <button onClick={handleAttendance} className="primary">Attend</button>
+            ) : (
+                <button onClick={handleAttendance}>Attending</button>
+            )}
             <button onClick = {() => byeEvent(id)}>Cancel</button>
         </Card>
     )

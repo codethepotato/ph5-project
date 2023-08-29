@@ -1,5 +1,3 @@
-import bcrypt
-
 from app import app
 from models import db, Cat, Cult, CatCult, Event
 
@@ -33,7 +31,7 @@ if __name__ == '__main__':
         c14 = Cat(name = 'Caramel', picture = '/Cat_cult_imgs/syeda.jpg', username = 'syeda', password_hash = 'anjum')
         c15 = Cat(name = 'Vivi', picture = '/Cat_cult_imgs/tj.png', username = 'bigbrain', password_hash = 'stifter')
         c16 = Cat(name = 'Aurthur Fluffington', picture = '/Cat_cult_imgs/Will.jpg', username = 'squilliam', password_hash = 'lowenkamp')
-        c17 = Cat(name = 'Odie', picture = '/Cat_cult_imgs/yu.jpg', username = 'yu', password_hash = '')
+        c17 = Cat(name = 'Odie', picture = '/Cat_cult_imgs/yu.jpg', username = 'yu', password_hash = 'wu')
         c18 = Cat(name = 'Purrple Haze', picture = '/Cat_cult_imgs/2.0.jpg', username = 'mauch', password_hash = 'twopointo')
         c19 = Cat(name = 'Lil Paw-pa', picture = '/Cat_cult_imgs/seb.jpg', username = 'sebulon', password_hash = 'martinez')
         c20 = Cat(name = 'Mr. Bean', picture = '/Cat_cult_imgs/robbie.png', username = 'robbie', password_hash = 'roberto')

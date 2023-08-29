@@ -22,22 +22,27 @@ class Cat(db.Model, SerializerMixin):
         return self._password_hash
     
     @password_hash.setter
-    def setting(self, new_password):
+    def password_hash(self, new_password):
         if (new_password, str) and 1 <= len(new_password) <= 15:
             secret = new_password.encode('utf-8')
             supersecret = bcrypt.generate_password_hash(secret)
             new_password_hash = supersecret.decode('utf-8')
             self._password_hash = new_password_hash
+        else:
+            raise ValueError('Password must be given between 1-15 characters!')
+        
+    def authenticate(self, test_string):
+        return bcrypt.check_password_hash(self.password_hash, test_string.encode('utf-8'))
 
     @validates('name')
     def validates_name(self, key, new_name):
-        if (new_name, str) and 1 <= len(new_name) <= 15:
+        if (new_name, str) and 1 <= len(new_name) <= 25:
             return new_name
         else:
             raise ValueError('Name must be given between 1-15 characters!')
 
     def __repr__(self):
-        return f'<Cat {self.id}: {self.name}>'
+        return f'<Cat {self.id}: {self.name} : {self.picture}>'
 
 
 class CatCult(db.Model, SerializerMixin):
@@ -61,7 +66,7 @@ class Cult(db.Model, SerializerMixin):
 
 
     def __repr__(self):
-        return f'<Cult {self.id}: {self.name}>'
+        return f'<Cult {self.id}: {self.name}: {self.motto}>'
 
 
 class Event(db.Model, SerializerMixin):
@@ -75,4 +80,4 @@ class Event(db.Model, SerializerMixin):
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
     def __repr__(self):
-        return f'<Event {self.id}: {self.title}: {self.co_mingle}>'
+        return f'<Event {self.id}: {self.title}:{self.description} : {self.co_mingle}>'

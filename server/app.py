@@ -20,10 +20,10 @@ def index():
 @app.route('/login', methods = ['POST'])
 def login():
     data = request.json
-    username = data['name']
+    username = data['username']
     password = data['password']
 
-    cat = Cat.query.filter_by(name = username).first()
+    cat = Cat.query.filter_by(username = username).first()
     if not cat:
         return make_response({'error': 'Cat not found'}, 404)
     
@@ -47,7 +47,6 @@ class Cats(Resource):
         return make_response(new_cat.to_dict(), 201)
 
 api.add_resource(Cats, '/cats')
-
 
 class Cults(Resource):
     def get(self):
@@ -81,24 +80,15 @@ api.add_resource(Events, '/events')
 
 class EventsById(Resource):
     def delete(self, id):
+
+        if not session['user_id']:
+            return {'error': 'Unauthorized'}, 401
+
         evt = Event.query.filter_by(id = id).first()
         db.session.delete(evt)
         db.session.commit()
         return make_response({}, 204)
     
-    def patch(self, id):
-        attend = Event.query.filter_by(id = id).first()
-        if not Event:
-            return make_response({'Error' : 'Event not found'}, 404)
-        data = request.json()
-        for key in data:
-            try:
-                setattr(attend, key, data[key])
-            except ValueError as v_error:
-                return make_response({'Errors': [str(v_error)]}, 422)
-        db.session.commit()
-        return make_response(attend.to_dict())
-
 
 api.add_resource(EventsById, '/events/<int:id>')
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Card } from "semantic-ui-react";
 import EventCard from './EventCard'
 
 
@@ -10,7 +10,7 @@ function SocialEvents() {
     const [description, setDescription] = useState('')
     const [cult_id, setCult_id] = useState('')
     const [mingle, setMingle] = useState(false)
-    const [attendance, setAttendance] = useState(false)
+
 
     useEffect(() => {
         fetch('http://localhost:5555/events')
@@ -51,10 +51,6 @@ function SocialEvents() {
         setMingle(!mingle)
     }
 
-    const handleAttendance = () => {
-        setAttendance(!attendance)
-        console.log('Is it?')
-    }
 
     const byeEvent = (id) => {
         const newList = events.filter((event) => event.id !== id);
@@ -64,9 +60,6 @@ function SocialEvents() {
         })
     }
 
-    
-      
-
     const allEvents = events.map(e => {
         return <EventCard
             key={e.id}
@@ -75,37 +68,38 @@ function SocialEvents() {
             description={e.description}
             cult_id={e.cult_id}
             co_mingle={e.co_mingle}
-            byeEvent = {byeEvent}
-            handleAttendance = {handleAttendance}
-            attendance = {attendance} />
+            byeEvent={byeEvent} />
     })
 
     return (
         <div className='event-container'>
             <h1>Cat-tastic Events!</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="new-event">
-                    <Form.Input
-                        onChange={e => setTitle(e.target.value)}
-                        fluid label='Title'
-                        placeholder='Event Title'
-                        title='title' />
-                    <Form.Input
-                        onChange={e => setDescription(e.target.value)}
-                        fluid label='Description'
-                        placeholder='Event Description'
-                        description='description' />
-                    <Form.Input
-                        onChange={e => setCult_id(e.target.value)}
-                        fluid label='Cult Id'
-                        placeholder="Event's Cult Id (ex. 1-6)" />
-                    <Form.Input
-                        onClick={toggle}
-                        fluid label='Co-Mingle'
-                        type='checkbox' />
-                </Form.Group>
-                <Form.Button>Submit!</Form.Button>
-            </Form>
+            <Card>
+                <h2>New Event</h2>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="new-event">
+                        <Form.Input
+                            onChange={e => setTitle(e.target.value)}
+                            fluid label='Title'
+                            placeholder='Event Title'
+                            title='title' />
+                        <Form.Input
+                            onChange={e => setDescription(e.target.value)}
+                            fluid label='Description'
+                            placeholder='Event Description'
+                            description='description' />
+                        <Form.Input
+                            onChange={e => setCult_id(e.target.value)}
+                            fluid label='Cult Id'
+                            placeholder="Event's Cult Id (ex. 1-6)" />
+                        <Form.Input
+                            onClick={toggle}
+                            fluid label='Co-Mingle'
+                            type='checkbox' />
+                    </Form.Group>
+                    <Form.Button>Submit!</Form.Button>
+                </Form>
+            </Card>
             {allEvents}
         </div>
     )
