@@ -35,7 +35,7 @@ function App() {
           <Route path='/Initiation' element = {<Initiation/>}></Route>
           <Route path='/Groups' element = {<Groups />}></Route>
         </Routes>
-        <h1>Here at Purr-Gatory we accept all kinds of feline friends! 
+        <h1 className="home-about">Here at Purr-Gatory we accept all kinds of feline friends! 
             We invite you to join us for activities where you can meet 
             groups and their members. 
         </h1>

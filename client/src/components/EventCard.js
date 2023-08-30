@@ -21,7 +21,7 @@ function EventCard({ id, title, description, co_mingle, cult_id, byeEvent }) {
                 <p>{co_mingle}</p>
             </div>
             <div>
-                { user ?               
+                {user ?
                     <div>
                         {attendance ? (
                             <button onClick={handleAttendance} className="primary">Attend</button>
@@ -30,10 +30,7 @@ function EventCard({ id, title, description, co_mingle, cult_id, byeEvent }) {
                         )}
                         <button onClick={() => byeEvent(id)}>Cancel</button>
                     </div> :
-                    <div>
-                    
-                    </div>
-                }
+                    <div></div>}
             </div>
         </Card>
     )

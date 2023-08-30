@@ -5,8 +5,13 @@ function GroupCard({name, motto}){
 
     return (
         <Card>
-            <div>{name}</div>
+            <div>
+            <h1>{name}</h1>
             <p>{motto}</p>
+            </div>
+            <div>
+                
+            </div>
         </Card>
     )
 }

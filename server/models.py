@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -17,8 +16,8 @@ class Cat(db.Model, SerializerMixin):
     username = db.Column(db.String)
     _password_hash = db.Column(db.String)
 
-    cults = db.relationship('Cult', back_populates = 'cult', cascade = 'all, delete-orphan')
-    cat_cults = association_proxy('cult', 'cat_cult')
+    cat_cults = db.relationship('CatCult', back_populates = 'cat', cascade = 'all, delete-orphan')
+    cults = association_proxy('cat_cults', 'cult')
 
     @property
     def password_hash(self):
@@ -56,7 +55,8 @@ class CatCult(db.Model, SerializerMixin):
     cat_id = db.Column(db.Integer, db.ForeignKey('cats.id'))
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
-    cat = db.relationship()
+    cat = db.relationship('Cat', back_populates = 'catCult')
+    cult = db.relationship('Cult', back_populates = 'cult')
 
     def __repr__(self):
         return f'<CatCult {self.id}>'
@@ -69,8 +69,8 @@ class Cult(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable = False)
     motto = db.Column(db.String)
 
-    cats = db.relationship('Cat', back_populates = 'cult')
-    cat_cults = association_proxy('cats', 'cat_cult')
+    cat_cults = db.relationship('CatCult', back_populates = 'cult')
+    cats = association_proxy('cat_cults', 'cat')
 
     def __repr__(self):
         return f'<Cult {self.id}: {self.name}: {self.motto}>'
@@ -86,8 +86,8 @@ class Event(db.Model, SerializerMixin):
 
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
-    cults = db.relationship('Cult', back_populates = 'event')
-    cat_cults = association_proxy('cults', 'cat_cult')
+    cat_cults = db.relationship('CatCult', back_populates = 'event')
+
 
     def __repr__(self):
         return f'<Event {self.id}: {self.title}:{self.description} : {self.co_mingle}>'
