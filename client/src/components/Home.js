@@ -6,7 +6,7 @@ import { UserContext } from "./Context/user.js";
 function Home() {
 
     const { user, setUser } = useContext(UserContext)
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState([])
 
 
     const updateUserName = e => {
@@ -15,15 +15,15 @@ function Home() {
         })
     }
 
-    const handlePost = (e) => {
+    const handlePatch = (e) => {
         e.preventDefault();
-        fetch('http://localhost:5555/cats/${id}', {
+        fetch(`/cats/${user.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type' : 'application/json'},
-            body: JSON.stringify({updateUserName}),
+            body: JSON.stringify(username),
         })
             .then(r => r.json())
-            .then((result) => setUsername(result))
+            .then((user) => setUser(user))
     }
 
     return (
@@ -34,11 +34,12 @@ function Home() {
                 <img className="member-image" src = {user?.picture} size = 'small' wrapped></img>
             </Card>
             <Card>
-                <Form onSubmit={handlePost}>
+                <Form onSubmit={handlePatch}>
                     <Form.Input
                         onChange = {e => updateUserName(e)}
                         fluid label = 'Change Username'
-                        placeholder = 'New username'/>
+                        placeholder = 'New username'
+                        name = 'username'/>
                     <Form.Button>Confirm</Form.Button>
                 </Form>
             </Card>

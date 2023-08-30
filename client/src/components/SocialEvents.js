@@ -13,7 +13,7 @@ function SocialEvents() {
 
 
     useEffect(() => {
-        fetch('http://localhost:5555/events')
+        fetch('/events')
             .then(r => r.json())
             .then(events => setEvents(events))
             .catch(error => {
@@ -34,7 +34,7 @@ function SocialEvents() {
     }
 
     function handlePost(eventObj) {
-        fetch('http://localhost:5555/events', {
+        fetch('/events', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(eventObj)
@@ -54,7 +54,7 @@ function SocialEvents() {
     const byeEvent = (id) => {
         const newList = events.filter((event) => event.id !== id);
         setEvents(newList)
-        fetch(`http://localhost:5555/events/${id}`, {
+        fetch(`/events/${id}`, {
             method: 'DELETE',
         })
     }

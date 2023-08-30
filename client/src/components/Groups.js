@@ -7,7 +7,7 @@ function Groups() {
     const [cults, setCults] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5555/cults')
+        fetch('/cults')
             .then(r => r.json())
             .then(cults => setCults(cults))
             .catch(error => {

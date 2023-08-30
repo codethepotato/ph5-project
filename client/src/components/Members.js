@@ -7,7 +7,7 @@ function Members() {
     const [cats, setCats] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5555/cats')
+        fetch('/cats')
             .then(r => r.json())
             .then(cats => setCats(cats))
             .catch(error => {

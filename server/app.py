@@ -4,7 +4,7 @@ from flask import Flask, request, make_response, jsonify, session
 from flask_restful import Api, Resource
 from flask_cors import CORS
 import os
-
+import ipdb
 from config import app, db, api
 
 
@@ -31,7 +31,17 @@ def login():
         return make_response({'error': 'Incorrect password'}, 401)
     
     session['cat_id'] = cat.id
+    ipdb.set_trace()
     return make_response(cat.to_dict())
+
+
+@app.route('/auth')
+def auth():
+    cat = Cat.query.filter(Cat.id == session.get('cat_id')).first()
+    if cat:
+        return make_response(cat.to_dict())
+    else:
+        return make_response({'error': 'No Cat is logged in!'}, 401)
     
 
 @app.route('/logout', methods = ['DELETE'])
@@ -72,10 +82,7 @@ class CatsById(Resource):
 
         db.session.commit()
 
-        response_dict = {
-            'username': cat.username
-        }
-        response = make_response(response_dict, 200)
+        response = make_response(cat.to_dict(), 200)
         return response 
 
 api.add_resource(CatsById, '/cats/<int:id>')

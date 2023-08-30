@@ -26,7 +26,7 @@ function SignUp() {
     }
 
     function handlePost(newCat) {
-        fetch('http://localhost:5555/cats', {
+        fetch('/cats', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newCat)

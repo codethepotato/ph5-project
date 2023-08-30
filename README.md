@@ -1,4 +1,9 @@
-Requirments for MVP:
+## Purr-Gatory 
+
+
+
+
+# Requirments for MVP:
 
   MVP is due Wednesday of Week 2
     
@@ -35,3 +40,7 @@ Requirments for MVP:
 
         Must implement one of the following:
           -useContext OR Redux OR a tech not in curriculum
+
+
+# Front End Dependencies
+

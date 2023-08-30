@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from "./Context/user";
 
-function NavBar({ updateUser }) {
+function NavBar() {
+
+    const {user, setUser} = useContext(UserContext)
 
     const handleLogout = () => {
         fetch('/logout', {
             method: 'DELETE',
         })
             .then(() => {
-                updateUser(null);
+                setUser(null);
                 toast.success('Lougout Successful!', {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 2000,

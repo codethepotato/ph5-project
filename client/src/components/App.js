@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./Home";
@@ -8,17 +8,25 @@ import Members from './Members';
 import SocialEvents from './SocialEvents';
 import Initiation from './Initiation';
 import Groups from "./Groups";
+import { UserContext } from "./Context/user";
 
 function App() {
 
-  const [user, setUser] = useState(null);
+  const {user, setUser} = useContext(UserContext)
 
-  const updateUser = (user) => setUser(user)
+  useEffect(() => {
+    fetch('/auth')
+      .then(r => {
+        if (r.ok) {
+          r.json().then(cat => setUser(cat))
+        }
+      })
+  },[])
 
   return (
     <div >
         <Header />
-        <NavBar updateUser = {updateUser}/>
+        <NavBar />
         <Routes>
           <Route path='/'></Route>
           <Route path='/Home' element = {<Home />}></Route>
@@ -27,6 +35,10 @@ function App() {
           <Route path='/Initiation' element = {<Initiation/>}></Route>
           <Route path='/Groups' element = {<Groups />}></Route>
         </Routes>
+        <h1>Here at Purr-Gatory we accept all kinds of feline friends! 
+            We invite you to join us for activities where you can meet 
+            groups and their members. 
+        </h1>
     </div>
   );
 }
