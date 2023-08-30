@@ -39,6 +39,7 @@ function App() {
             We invite you to join us for activities where you can meet 
             groups and their members. 
         </h1>
+        <img className = 'group-photo' src='/Cat_cult_imgs/group_photo.png' />
     </div>
   );
 }

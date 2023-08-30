@@ -31,7 +31,7 @@ def login():
         return make_response({'error': 'Incorrect password'}, 401)
     
     session['cat_id'] = cat.id
-    ipdb.set_trace()
+    # ipdb.set_trace()
     return make_response(cat.to_dict())
 
 

@@ -17,6 +17,9 @@ class Cat(db.Model, SerializerMixin):
     username = db.Column(db.String)
     _password_hash = db.Column(db.String)
 
+    cults = db.relationship('Cult', back_populates = 'cult', cascade = 'all, delete-orphan')
+    cat_cults = association_proxy('cult', 'cat_cult')
+
     @property
     def password_hash(self):
         return self._password_hash
@@ -53,6 +56,8 @@ class CatCult(db.Model, SerializerMixin):
     cat_id = db.Column(db.Integer, db.ForeignKey('cats.id'))
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
+    cat = db.relationship()
+
     def __repr__(self):
         return f'<CatCult {self.id}>'
 
@@ -64,6 +69,8 @@ class Cult(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable = False)
     motto = db.Column(db.String)
 
+    cats = db.relationship('Cat', back_populates = 'cult')
+    cat_cults = association_proxy('cats', 'cat_cult')
 
     def __repr__(self):
         return f'<Cult {self.id}: {self.name}: {self.motto}>'
@@ -78,6 +85,9 @@ class Event(db.Model, SerializerMixin):
     co_mingle = db.Column(db.Boolean)
 
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
+
+    cults = db.relationship('Cult', back_populates = 'event')
+    cat_cults = association_proxy('cults', 'cat_cult')
 
     def __repr__(self):
         return f'<Event {self.id}: {self.title}:{self.description} : {self.co_mingle}>'
