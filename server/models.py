@@ -42,6 +42,8 @@ class Cat(db.Model, SerializerMixin):
             return new_name
         else:
             raise ValueError('Name must be given between 1-15 characters!')
+        
+    serialize_rules = ('-cat_cults', '-cults', )
 
     def __repr__(self):
         return f'<Cat {self.id}: {self.name} : {self.picture}>'
@@ -55,8 +57,8 @@ class CatCult(db.Model, SerializerMixin):
     cat_id = db.Column(db.Integer, db.ForeignKey('cats.id'))
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
-    cat = db.relationship('Cat', back_populates = 'catCult')
-    cult = db.relationship('Cult', back_populates = 'cult')
+    cat = db.relationship('Cat', back_populates = 'cat_cults')
+    cult = db.relationship('Cult', back_populates = 'cat_cults')
 
     def __repr__(self):
         return f'<CatCult {self.id}>'
@@ -72,6 +74,8 @@ class Cult(db.Model, SerializerMixin):
     cat_cults = db.relationship('CatCult', back_populates = 'cult')
     cats = association_proxy('cat_cults', 'cat')
 
+    serialize_rules = ('-cat_cults', '-cats')
+
     def __repr__(self):
         return f'<Cult {self.id}: {self.name}: {self.motto}>'
 
@@ -86,7 +90,7 @@ class Event(db.Model, SerializerMixin):
 
     cult_id = db.Column(db.Integer, db.ForeignKey('cults.id'))
 
-    cat_cults = db.relationship('CatCult', back_populates = 'event')
+    # cat_cults = db.relationship('CatCult', back_populates = 'event')
 
 
     def __repr__(self):
