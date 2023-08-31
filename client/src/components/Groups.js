@@ -5,6 +5,7 @@ import { Card } from "semantic-ui-react";
 function Groups() {
 
     const [cults, setCults] = useState([])
+    const [catcults, setCatcults] = useState([])
 
     useEffect(() => {
         fetch('/cults')
@@ -15,12 +16,23 @@ function Groups() {
             })
     }, []);
 
+    useEffect(() => {
+        fetch('/catcults')
+            .then(r => r.json())
+            .then(catcults => setCatcults(catcults))
+            .catch(error => {
+                console.error('Error fatching catcults:', error);
+            })
+    }, []);
+
+    const catCultists = () => {}
+
     const allCults = cults.map(cult => {
-        return <GroupCard 
-        key = {cult.id}
-        name = {cult.name}
-        cult_id = {cult.id}
-        motto = {cult.motto} />
+        return <GroupCard
+            key={cult.id}
+            name={cult.name}
+            cult_id={cult.id}
+            motto={cult.motto} />
     })
 
     return (
