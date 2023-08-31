@@ -128,6 +128,18 @@ class EventsById(Resource):
 api.add_resource(EventsById, '/events/<int:id>')
 
 
+class CatCults(Resource):
+    def post(self):
+        data = request.get_json()
+        new_cultist = CatCult(cat_id = data['cat_id'], cult_id = data['cult_id'])
+        db.session.add(new_cultist)
+        db.session.commit()
+        return make_response(new_cultist.to_dict(), 201)
+    
+
+api.add_resource(CatCults, '/catcults')
+
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
