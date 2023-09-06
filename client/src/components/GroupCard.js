@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import { UserContext } from './Context/user';
 
 
-function GroupCard({ name, motto, cult_id}) {
+function GroupCard({ name, motto, cult_id, catcult}) {
 
     const { user, setUser } = useContext(UserContext)
     const [cultists, setCultists] = useState([])
@@ -29,8 +29,16 @@ function GroupCard({ name, motto, cult_id}) {
             body: JSON.stringify(newCatCult)
         })
             .then(r => r.json())
-            .then(newCultist => addCultist(newCultist))
+            .then(newCultist =>{ addCultist(newCultist)})
     }
+
+    const memberList = () => {
+        return cultists.map(cc => <li key = {cc.id}>{cc.cat_id}</li>)
+    }
+
+    useEffect(() => {
+        setCultists(catcult)
+    },[catcult])
 
     return (
         <Card>
@@ -38,7 +46,7 @@ function GroupCard({ name, motto, cult_id}) {
                 <h1>{name}</h1>
                 <p>{motto}</p>
                 <ol>Member Id's:
-                    <li>{}</li>
+                    {memberList()}
                 </ol>
             </div>
             <div>

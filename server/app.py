@@ -129,6 +129,10 @@ api.add_resource(EventsById, '/events/<int:id>')
 
 
 class CatCults(Resource):
+    def get(self):
+        catcults = [ctcl.to_dict() for ctcl in CatCult.query.all()]
+        return make_response(jsonify(catcults), 200)
+
     def post(self):
         data = request.get_json()
         new_cultist = CatCult(cat_id = data['cat_id'], cult_id = data['cult_id'])

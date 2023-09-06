@@ -25,14 +25,17 @@ function Groups() {
             })
     }, []);
 
-    const catCultists = () => {}
+    function members(cult_id){
+        return catcults.filter(cc => cc.cult_id == cult_id)
+    }
 
     const allCults = cults.map(cult => {
         return <GroupCard
             key={cult.id}
             name={cult.name}
             cult_id={cult.id}
-            motto={cult.motto} />
+            motto={cult.motto}
+            catcult={members(cult.id)} />
     })
 
     return (
