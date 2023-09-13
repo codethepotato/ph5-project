@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from "./Context/user";
@@ -7,6 +7,7 @@ import { UserContext } from "./Context/user";
 function NavBar() {
 
     const {user, setUser} = useContext(UserContext)
+    const navigate = useNavigate()
 
     const handleLogout = () => {
         fetch('/logout', {
@@ -18,6 +19,7 @@ function NavBar() {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 2000,
                 })
+                navigate('/Initation')
             });
 
     };
@@ -44,9 +46,9 @@ function NavBar() {
                 <NavLink to='/Groups'>
                     <button type='button'>Groups</button></NavLink>
             </ul>
-            <ul className="nav-item">
+           {user ? <ul className="nav-item">
                 <button onClick={handleLogout}>Logout</button>
-            </ul>
+            </ul> : null}
             <ToastContainer />
         </nav>
 

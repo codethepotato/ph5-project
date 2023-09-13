@@ -38,7 +38,7 @@ class Cat(db.Model, SerializerMixin):
 
     @validates('name')
     def validates_name(self, key, new_name):
-        if (new_name, str) and 1 <= len(new_name) <= 25:
+        if (new_name, str) and 1 <= len(new_name) <= 20:
             return new_name
         else:
             raise ValueError('Name must be given between 1-15 characters!')

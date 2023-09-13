@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Form, Card, Input } from 'semantic-ui-react';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from './Context/user';
 
 function SignUp() {
 
@@ -8,6 +11,7 @@ function SignUp() {
     const [picture, setPicture] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const {user, setUser} = useContext(UserContext)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -31,7 +35,22 @@ function SignUp() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newCat)
         })
-            .then(r => r.json())
+            .then(r => {
+                if (r.ok){
+                    r.json().then(r_body => {
+                        setUser(r_body)
+                        toast.success('Joined successfully!', {
+                            position: toast.POSITION.TOP_CENTER,
+                            autoClose: 2000,
+                        });  
+                    })
+                } else {
+                    toast.error('Username must be 20 characters or less!', {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 2000,
+                    });
+                }
+            })
             .then(newCat => addCat(newCat))
     }
 
@@ -68,12 +87,13 @@ function SignUp() {
                         <label>Password</label>
                         <Input
                             onChange={e => setPassword(e.target.value)}
-                            type='text'
+                            type='password'
                             placeholder='Password'
                             name='password' />
                     </Form.Input>
                     <Form.Button onClick={handleSubmit}>Join!</Form.Button>
                 </Form>
+                <ToastContainer/>
             </Card>
         </div >
     )

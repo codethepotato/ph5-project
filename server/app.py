@@ -25,7 +25,7 @@ def login():
 
     cat = Cat.query.filter_by(username = username).first()
     if not cat:
-        return make_response({'error': 'Cat not found'}, 404)
+        return make_response({'error': 'Cat not found'}, 422)
     
     if not cat.authenticate(password):
         return make_response({'error': 'Incorrect password'}, 401)
@@ -65,7 +65,14 @@ class Cats(Resource):
     def post(self):
         data = request.get_json()
         new_cat = Cat(name = data['name'], picture = data['picture'], username = data['username'], password_hash = data['password'])
-        db.session.add(new_cat)
+
+        if new_cat:
+            try: 
+                db.session.add(new_cat)
+
+            except ValueError as v_error:
+                return make_response({'error' : [str(v_error)]}, 422)
+
         db.session.commit()
         return make_response(new_cat.to_dict(), 201)
 
