@@ -28,7 +28,7 @@ function Login() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(login)
             });
-            const data = await resp.json();
+            const data = await resp;
             if (resp.status === 200) {
                 resp.json().then(resp_body => {
                     setUser(resp_body)
@@ -74,6 +74,7 @@ function Login() {
                     </Form.Input>
                     <Form.Button>Pst Pst!</Form.Button>
                 </Form>
+                {error ? <div>{error}</div> : null }
                 <ToastContainer />
             </Card>
         </div>

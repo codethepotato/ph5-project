@@ -12,6 +12,7 @@ function SignUp() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const {user, setUser} = useContext(UserContext)
+    const [error, setError] = useState('')
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -38,6 +39,7 @@ function SignUp() {
             .then(r => {
                 if (r.ok){
                     r.json().then(r_body => {
+                        setError('')
                         setUser(r_body)
                         toast.success('Joined successfully!', {
                             position: toast.POSITION.TOP_CENTER,
@@ -45,10 +47,11 @@ function SignUp() {
                         });  
                     })
                 } else {
-                    toast.error('Username must be 20 characters or less!', {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: 2000,
-                    });
+                    r.json().then(message => setError(message.error))
+                    // toast.error('Username must be 20 characters or less!', {
+                    //     position: toast.POSITION.TOP_CENTER,
+                    //     autoClose: 2000,
+                    // });
                 }
             })
             .then(newCat => addCat(newCat))
@@ -93,6 +96,7 @@ function SignUp() {
                     </Form.Input>
                     <Form.Button onClick={handleSubmit}>Join!</Form.Button>
                 </Form>
+                {error ? <div>{error}</div> : null}
                 <ToastContainer/>
             </Card>
         </div >
